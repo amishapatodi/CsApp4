@@ -3,6 +3,62 @@
     <string name="action_settings">Settings</string>
     <string name="student">STUDENT</string>
     <string name="teacher">TEACHER</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_class">Add Class</string>
+    <string name="nav_item_attendance">Attendance</string>
+    <string name="nav_item_assignment">Add Assignment</string>
+    <string name="nav_item_news">Add news</string>
+    <string name="nav_item_messanger">Messanger</string>
+    <string name="nav_item_video">Video and Audio Calling</string>
+    <string name="nav_item_atendance">Attendance</string>
+    <string name="nav_item_asignment">Assignment</string>
+    <string name="nav_item_new">News</string>
+    <string name="nav_item_viewattendance">View Attendance</string>
+    <string name="nav_item_viewassignment">View Assignment</string>
+    <string name="nav_item_uploadmarks">Upload Marks</string>
+    <string name="nav_item_uploadtimetable">Upload TimeTable</string>
+    <string name="nav_item_uploadsubmission">Upload Submission</string>
+    <string name="nav_item_viewstudentsubmission">View Student Assignment</string>
+    <string name="nav_item_uploadstudentassignment">Upload Assignment</string>
+    <string name="nav_item_viewtimetable">View Timetable</string>
+    <string name="nav_item_viewmarks">View Marks</string>
+
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_class</item>
+        <item>@string/nav_item_attendance</item>
+        <item>@string/nav_item_assignment</item>
+        <item>@string/nav_item_news</item>
+        <item>@string/nav_item_viewattendance</item>
+        <item>@string/nav_item_viewassignment</item>
+        <item>@string/nav_item_uploadmarks</item>
+        <item>@string/nav_item_uploadtimetable</item>
+        <item>@string/nav_item_viewstudentsubmission</item>
+        <item>@string/nav_item_messanger</item>
+        <item>@string/nav_item_video</item>
+    </string-array>
+    <string-array name="nav_student_label">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_atendance</item>
+        <item>@string/nav_item_asignment</item>
+        <item>@string/nav_item_new</item>
+        <item>@string/nav_item_viewmarks</item>
+        <item>@string/nav_item_viewtimetable</item>
+        <item>@string/nav_item_uploadstudentassignment</item>
+        <item>@string/nav_item_messanger</item>
+        <item>@string/nav_item_video</item>
+
+    </string-array>
+
+    <string name="title_class">Messages</string>
+    <string name="title_attendance">Friends</string>
+    <string name="title_home">Home</string>
+    <string name="title_assignment">Assignment</string>
     <string name="title_activity_scrollable_tabs">Scrollable Tabs</string>
     <string name="title_activity_simple_tabs">Simple Tabs</string>
     <string name="btn_simple_tabs">Simple Tabs</string>
@@ -17,6 +73,7 @@
     <string name="title_activity_pinned_top_tabs">Pin Top Tabs</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="hint_email">Email</string>
+    <string name="hint_enroll">Enrollment no.</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
@@ -27,4 +84,7 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="name">Fullname</string>
     <string name="hello_world">Hello world!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

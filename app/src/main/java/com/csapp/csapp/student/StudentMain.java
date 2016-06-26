@@ -1,59 +1,56 @@
-package com.csapp.csapp;
+package com.csapp.csapp.student;
 
 /**
- * Created by Shubhi on 4/12/2016.
+ * Created by Shubhi on 5/11/2016.
  */
-
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.widget.Toolbar;
+
+import com.csapp.csapp.MainActivity;
 import com.csapp.csapp.R;
 import com.csapp.csapp.app.AppConfig;
-import com.csapp.csapp.app.AppController;
 import com.csapp.csapp.helper.SQLiteHandler;
 import com.csapp.csapp.helper.SessionManager;
 
-public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class StudentMain extends AppCompatActivity implements com.csapp.csapp.student.FragmentDrawer.FragmentDrawerListener {
 
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private TextView txtName;
-    private TextView txtEmail;
+    private TextView txtEnroll;
     private Button btnLogout;
-
+    private String enroll;
     private SQLiteHandler db;
     private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.studentmain);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment = (com.csapp.csapp.student.FragmentDrawer)getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
         onNavigationDrawerItemSelected(0);
 
         txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
+        txtEnroll = (TextView) findViewById(R.id.enroll);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         // SqLite database handler
@@ -67,14 +64,14 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
         }
 
         // Fetching user details from sqlite
-        HashMap<String, String> user = db.getTeacherDetails();
+        HashMap<String, String> user = db.getStudentDetails();
 
         String name = user.get("name");
-        String email = user.get("email");
-        //Toast.makeText(getApplicationContext(),name+" "+email,Toast.LENGTH_LONG).show();
+        enroll = user.get("enroll");
+        //Toast.makeText(getApplicationContext(),name+" "+enroll,Toast.LENGTH_LONG).show();
         // Displaying the user details on the screen
         txtName.setText(name);
-        txtEmail.setText(email);
+        txtEnroll.setText(enroll);
 
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -93,10 +90,10 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     private void logoutUser() {
         session.setLogin(false);
 
-        db.deleteTeachers();
+        db.deleteStudents();
 
         // Launching the login activity
-        Intent intent = new Intent(Main.this, MainActivity.class);
+        Intent intent = new Intent(StudentMain.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -112,47 +109,42 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
             case 0:
                 break;
             case 1:
-                Intent addclass = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.URL_START+"uploadclass.php"));
-                startActivity(addclass);
+                Intent i=new Intent(this,studentAssignment.studentattendance.class);
+                i.putExtra("rollno",enroll);
+                startActivity(i);
                 break;
             case 2:
-                startActivity(new Intent(this,Teacher_Attendance.class));
+                Intent in=new Intent(this,studentAssignment.class);
+                in.putExtra("rollno",enroll);
+                startActivity(in);
                 break;
             case 3:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.URL_START+"uploadassignment.php"));
-                startActivity(browserIntent);
-                break;
-            case 4:
                 startActivity(new Intent(this,News.class));
                 break;
-            case 5:
-                startActivity(new Intent(this,ViewAttendance.class));
-                break;
-            case 6:
-                startActivity(new Intent(this,ViewAssignment.class));
-                break;
-            case 7:
-                Intent ii = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.URL_START+"uploadmarks.php"));
+            case 4:
+                Intent ii=new Intent(this,studentAssignment.studentMarks.class);
+                ii.putExtra("rollno",enroll);
                 startActivity(ii);
                 break;
-            case 8:
-                Intent iii = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.URL_START+"uploadtimetable.php"));
+            case 5:
+                Intent iii=new Intent(this,studentAssignment.studentTimetable.class);
+                iii.putExtra("rollno",enroll);
                 startActivity(iii);
                 break;
-            case 9:
-                startActivity(new Intent(this,ViewAssignment.ViewStudentAssignment.class));
+            case 6:
+                Intent iiii = new Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.URL_START+"submitassignment.php?rollno="+enroll));
+                startActivity(iiii);
                 break;
-
-            case 10:
+             case 7:
                 Intent message = getPackageManager().getLaunchIntentForPackage("info.androidhive.gcm");
                 startActivity(message);
                 break;
-            case 11:
+            case 8:
                 Intent chat = getPackageManager().getLaunchIntentForPackage("com.quickblox.sample.groupchatwebrtc");
                 startActivity(chat);
                 break;
-              default:
-                  break;
+            default:
+                break;
         }
     }
 }

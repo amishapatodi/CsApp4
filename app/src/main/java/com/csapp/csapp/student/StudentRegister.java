@@ -1,4 +1,4 @@
-package com.csapp.csapp;
+package com.csapp.csapp.student;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,18 +22,20 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.csapp.csapp.MainActivity;
 import com.csapp.csapp.R;
 import com.csapp.csapp.helper.SessionManager;
 import com.csapp.csapp.helper.SQLiteHandler;
 import com.csapp.csapp.app.AppConfig;
 import com.csapp.csapp.app.AppController;
 
-public class TeacherRegister extends AppCompatActivity {
-    private static final String TAG = TeacherRegister.class.getSimpleName();
+public class StudentRegister extends AppCompatActivity {
+    private static final String TAG = StudentRegister.class.getSimpleName();
     private Button btnRegister;
     private Button btnLinkToLogin;
     private EditText inputFullName;
-    private EditText inputEmail;
+    private EditText inputEnroll;
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
@@ -43,12 +45,12 @@ public class TeacherRegister extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_register);
+        setContentView(R.layout.student_register);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         inputFullName = (EditText) findViewById(R.id.name);
-        inputEmail = (EditText) findViewById(R.id.email);
+        inputEnroll = (EditText) findViewById(R.id.enroll);
         inputPassword = (EditText) findViewById(R.id.password);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
@@ -66,8 +68,8 @@ public class TeacherRegister extends AppCompatActivity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(TeacherRegister.this,
-                    Main.class);
+            Intent intent = new Intent(StudentRegister.this,
+                    StudentMain.class);
             startActivity(intent);
             finish();
         }
@@ -76,14 +78,14 @@ public class TeacherRegister extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String name = inputFullName.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
+                String enroll = inputEnroll.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                if (!name.isEmpty() && !enroll.isEmpty() && !password.isEmpty()) {
 //                    Toast.makeText(getApplicationContext(),
 //                            "processing", Toast.LENGTH_LONG)
 //                            .show();
-                    registerTeacher(name, email, password);
+                    registerTeacher(name, enroll, password);
 
                 } else {
                     Toast.makeText(getApplicationContext(),
@@ -107,9 +109,9 @@ public class TeacherRegister extends AppCompatActivity {
 
     /**
      * Function to store user in MySQL database will post params(tag, name,
-     * email, password) to register url
+     * enroll, password) to register url
      */
-    private void registerTeacher(final String name, final String email,
+    private void registerTeacher(final String name, final String enroll,
                                  final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -118,7 +120,7 @@ public class TeacherRegister extends AppCompatActivity {
         showDialog();
 
         StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
+                AppConfig.URL_STUDENT_REGISTER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -138,7 +140,7 @@ public class TeacherRegister extends AppCompatActivity {
 
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
-                        String email = user.getString("email");
+                        String enroll = user.getString("enroll");
                         String created_at = user
                                 .getString("created_at");
 
@@ -146,7 +148,7 @@ public class TeacherRegister extends AppCompatActivity {
 //                                "json", Toast.LENGTH_LONG)
 //                                .show();
 //                        // Inserting row in users table
-                        db.addTeacher(name, email, uid, created_at);
+                        db.addStudent(name, enroll, uid, created_at);
 //                        Toast.makeText(getApplicationContext(),
 //                                "addUser", Toast.LENGTH_LONG)
 //                                .show();
@@ -154,7 +156,7 @@ public class TeacherRegister extends AppCompatActivity {
 
                         // Launch login activity
                         Intent intent = new Intent(
-                                TeacherRegister.this,
+                                StudentRegister.this,
                                 MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -188,7 +190,7 @@ public class TeacherRegister extends AppCompatActivity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
-                params.put("email", email);
+                params.put("enroll", enroll);
                 params.put("password", password);
 
                 return params;

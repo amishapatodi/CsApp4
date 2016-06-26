@@ -5,8 +5,11 @@
     android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application android:name=".app.AppController"
+    <application
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,24 +26,48 @@
         </activity>
         <activity
             android:name=".TeacherRegister"
-            android:label="next"
+            android:label="Teacher Register"
             android:parentActivityName=".MainActivity">
 
         </activity>
+        <activity
+            android:name=".student.StudentRegister"
+            android:label="Student Register"
+            android:parentActivityName=".MainActivity">
 
+        </activity>
+        <activity android:name=".student.StudentMain"
+            android:label="CSApp Home">
 
+        </activity>
+        <activity
+            android:name=".Main"
+            android:label="CsApp Home">
+        </activity>
+        <activity
+            android:name=".Teacher_AddStudent"
+            android:label="Add Student"
+            android:parentActivityName=".Main">
 
-        <!--<activity android:name=".activity.LoginActivity"-->
-            <!--android:label="CsApps"-->
-            <!--&gt;</activity>-->
-        <!--<activity android:name=".activity.RegisterActivity"-->
-            <!--android:label="CsApp"-->
-            <!--android:parentActivityName=".MainActivity">-->
+        </activity>
+        <activity
+            android:name=".Teacher_Attendance"
+            android:label="Attendance"
+            android:parentActivityName=".Main">
+        </activity>
+        <activity android:name=".News"
+            android:parentActivityName=".Main"></activity>
+        <activity android:name=".Teacher_Assignment"
+            android:parentActivityName=".Main"></activity>
+    <activity android:name=".student.studentAssignment"></activity>
+        <activity android:name=".student.studentAssignment$studentattendance"></activity>
+        <activity android:name=".student.News"></activity>
+        <activity android:name=".ViewAssignment"></activity>
+        <activity android:name=".ViewAttendance"></activity>
+        <activity android:name=".ViewAssignment$ViewStudentAssignment"></activity>
+        <activity android:name=".student.studentAssignment$studentMarks"></activity>
+        <activity android:name=".student.studentAssignment$studentTimetable"></activity>
 
-        <!--</activity>-->
-        <activity android:name=".Main"
-            android:label="CsApp">
-            </activity>
     </application>
 
 </manifest>

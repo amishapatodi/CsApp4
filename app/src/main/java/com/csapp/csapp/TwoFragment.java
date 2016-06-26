@@ -87,7 +87,7 @@ public class TwoFragment extends Fragment  {
                         String type="teacher";
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addTeacher(name, email, uid, created_at);
                         //Toast.makeText(getActivity(),"adduser",Toast.LENGTH_LONG).show();
 
                         // Launch main activity
@@ -219,7 +219,7 @@ public class TwoFragment extends Fragment  {
                 Intent i = new Intent(getActivity(),
                         TeacherRegister.class);
                 startActivity(i);
-                getActivity().finish();
+                //getActivity().finish();
             }
         });
     }
